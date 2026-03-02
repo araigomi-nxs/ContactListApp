@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ContactListApp">
         <activity
-            android:name=".UpdateContactActivity"
+            android:name=".activities.UpdateContactActivity"
             android:exported="false" />
         <activity
-            android:name=".ContactFormActivity"
+            android:name=".activities.ContactFormActivity"
             android:exported="false" />
         <activity
-            android:name=".CardActivity"
+            android:name=".activities.CardActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

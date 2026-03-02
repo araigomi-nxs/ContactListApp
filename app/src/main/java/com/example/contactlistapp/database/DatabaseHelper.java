@@ -2,12 +2,16 @@ package com.example.contactlistapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
 import com.example.contactlistapp.models.Contact;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -36,14 +40,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //insertUser db.insert
     public void insertContact( Contact contactperson)
     {
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues value = new ContentValues();
+
         value.put("name",contactperson.getName());
         value.put("phone_number",contactperson.getPhoneNumber());
         value.put("image",contactperson.getImage());
-
         db.insert("contacts", null, value);
+
+    }
+
+    public List<Contact> getAllContacts()
+    {
+        List <Contact> contacts = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("contacts", new String[]{"id", "name", "phone_number", "image"}, null, null, null, null, null);
+
+        while ( cursor.moveToNext())
+        {
+            Contact contact = new Contact(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getInt(3)
+            );
+            contacts.add(contact);
+        }
+        cursor.close();
         db.close();
+        return contacts;
     }
 
 
