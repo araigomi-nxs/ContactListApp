@@ -1,6 +1,9 @@
 package com.example.contactlistapp.activities;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,8 @@ import com.example.contactlistapp.R;
 
 public class CardActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +27,8 @@ public class CardActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
     }
 }
