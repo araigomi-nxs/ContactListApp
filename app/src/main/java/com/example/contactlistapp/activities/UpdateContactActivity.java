@@ -1,6 +1,8 @@
 package com.example.contactlistapp.activities;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,12 @@ import com.example.contactlistapp.R;
 
 public class UpdateContactActivity extends AppCompatActivity {
 
+    Button btnBack;
+    EditText etName;
+    EditText etPhoneNumber;
+    Button btnAdd;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +30,11 @@ public class UpdateContactActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btnBack = findViewById(R.id.btnBack);
+        etName = findViewById(R.id.etName);
+        etPhoneNumber = findViewById(R.id.etPhoneNumber);
+        btnAdd = findViewById(R.id.btnAdd);
+
     }
 }
