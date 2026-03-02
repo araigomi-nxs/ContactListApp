@@ -1,5 +1,6 @@
 package com.example.contactlistapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,9 +47,17 @@ public class ContactFormActivity extends AppCompatActivity {
                 Contact contact = new Contact(0,namefield.getText().toString(), phoneNumberfield.getText().toString(), 0 );
                 DatabaseHelper databaseHelper = new DatabaseHelper(ContactFormActivity.this);
                 databaseHelper.insertContact(contact);
+                Intent intent = new Intent(ContactFormActivity.this, MainActivity.class);
+                startActivity(intent);
 
             }
         } );
-
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactFormActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
