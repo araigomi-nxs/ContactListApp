@@ -1,10 +1,12 @@
 package com.example.contactlistapp.activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,8 @@ public class UpdateContactActivity extends AppCompatActivity {
     EditText etName;
     EditText etPhoneNumber;
     Button updateButton;
+    ImageView image;
+    Button deleteButton;
 
 
     @Override
@@ -35,7 +39,7 @@ public class UpdateContactActivity extends AppCompatActivity {
             return insets;
         });
 
-        int contactId = (int)  getIntent().getIntExtra("contactId", 0);
+        int contactId = (int) getIntent().getIntExtra("contactId", 0);
         DatabaseHelper databaseHelper = new DatabaseHelper(UpdateContactActivity.this);
 
         Contact contact = databaseHelper.getContact(contactId);
@@ -44,31 +48,27 @@ public class UpdateContactActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         updateButton = findViewById(R.id.btnAdd);
+        image = findViewById(R.id.image);
+        deleteButton = findViewById(R.id.btnDelete);
+
 
         etName.setText(contact.getName());
         etPhoneNumber.setText(contact.getPhoneNumber());
 
 
-
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                contact.setName(etName.getText().toString());
-                contact.setPhoneNumber(etPhoneNumber.getText().toString());
+
                 databaseHelper.updateContact(contact, contactId);
 
                 Intent intent = new Intent(UpdateContactActivity.this, MainActivity.class);
                 startActivity(intent);
+
+
             }
         });
 
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UpdateContactActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-}}
+    }
+}
