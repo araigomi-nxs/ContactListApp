@@ -2,11 +2,17 @@ package com.example.contactlistapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.contactlistapp.R;
 import com.example.contactlistapp.database.DatabaseHelper;
 import com.example.contactlistapp.functions.ContactListAdapter;
+import com.example.contactlistapp.models.Contact;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.list);
         ContactListAdapter adapter = new ContactListAdapter(MainActivity.this, db.getAllContacts());
         listView.setAdapter(adapter);
-
-
+        adapter.notifyDataSetChanged();
         Button addContactButton = findViewById(R.id.btnAdd);
 
         addContactButton.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +56,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, UpdateContactActivity.class);
 
-
-    }
+                intent.putExtra("contactId", db.getContact(position+1 ).getId());
+                startActivity(intent);
+        }});
+        }
     
 
-}
+    }

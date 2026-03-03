@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -49,6 +50,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("contacts", null, value);
 
     }
+    public Contact getContact(int id)
+    {
+        Contact contact = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("contacts", new String[]{"id", "name", "phone_number", "image"}, "id=?", new String[]{String.valueOf(id)}, null, null, null);
+        if(cursor.moveToFirst())
+        {
+           contact = new Contact(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getInt(3
+            ));
+        }
+        cursor.close();
+
+        return contact;
+    }
+
+
+    public void updateContact(Contact contact, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", contact.getName());
+        values.put("phone_number", contact.getPhoneNumber());
+        values.put("image", contact.getImage());
+
+        Log.d("DatabaseHelper", "Updating contact with id: " +contact.getId()+contact.getName()+contact.getPhoneNumber());
+        int result = db.update("contacts", values, "id = ?",
+                new String[]{"1"});
+        Log.d("DatabaseHelper", "Update result: " + result + " rows affected");
+    }
+
+
 
     public List<Contact> getAllContacts()
     {
@@ -67,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contacts.add(contact);
         }
         cursor.close();
-        db.close();
+
         return contacts;
     }
 
