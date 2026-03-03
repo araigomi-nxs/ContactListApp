@@ -49,19 +49,26 @@ public class UpdateContactActivity extends AppCompatActivity {
         etPhoneNumber.setText(contact.getPhoneNumber());
 
 
+
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                contact.setName(etName.getText().toString());
+                contact.setPhoneNumber(etPhoneNumber.getText().toString());
                 databaseHelper.updateContact(contact, contactId);
 
                 Intent intent = new Intent(UpdateContactActivity.this, MainActivity.class);
                 startActivity(intent);
-
-
             }
         });
 
 
-    }
-}
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UpdateContactActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+}}
